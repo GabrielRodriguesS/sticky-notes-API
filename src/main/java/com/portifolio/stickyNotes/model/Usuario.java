@@ -1,10 +1,12 @@
 package com.portifolio.stickyNotes.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-
+@Data
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,4 +18,5 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario")
     private List<Notas> notas;
+
 }
