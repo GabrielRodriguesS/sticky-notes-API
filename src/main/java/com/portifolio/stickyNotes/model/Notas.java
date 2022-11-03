@@ -1,10 +1,16 @@
 package com.portifolio.stickyNotes.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+
+@Data
 public class Notas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,10 +20,12 @@ public class Notas {
     @Column(name = "corpo")
     private String corpo;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.DETACH})
     @JoinTable(
             name = "notas_categoria",

@@ -1,5 +1,7 @@
 package com.portifolio.stickyNotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +18,9 @@ public class Usuario {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Notas> notas;
+
 
 }
