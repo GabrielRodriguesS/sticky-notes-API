@@ -1,5 +1,4 @@
 package com.portifolio.stickyNotes.controller;
-
 import com.portifolio.stickyNotes.model.Notas;
 import com.portifolio.stickyNotes.model.Usuario;
 import com.portifolio.stickyNotes.repository.NotasRepository;
@@ -10,6 +9,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +31,7 @@ public class UsuarioController {
     public List<Usuario> obterTodosUsuarios() {
         return this.repository.findAll();
     }
+
 
     @PostMapping
     public Usuario salvarUsuario(@RequestBody Usuario novoUsuario) {

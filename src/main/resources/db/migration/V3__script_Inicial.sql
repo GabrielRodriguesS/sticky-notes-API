@@ -1,1 +1,1 @@
-alter table public."categoria" ADD FOREIGN KEY ("id") REFERENCES public."usuario" ("id");
+ALTER TABLE public."categoria" ADD COLUMN "id_usuario" integer;
