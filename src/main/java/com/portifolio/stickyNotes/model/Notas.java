@@ -26,7 +26,6 @@ public class Notas {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.DETACH})
     @JoinTable(
             name = "notas_categoria",

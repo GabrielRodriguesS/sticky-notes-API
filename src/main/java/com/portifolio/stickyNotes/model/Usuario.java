@@ -24,6 +24,4 @@ public class Usuario {
     @JsonIgnore
     @OneToMany(mappedBy = "usuario")
     private List<Notas> notas;
-
-
 }
