@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -65,7 +64,8 @@ public class CategoriaController {
         }
 
         @PatchMapping("/editar/{id}/{nome}")
-        public Categoria updateCategoriaPartially(@PathVariable Integer id, @PathVariable String nome) throws ChangeSetPersister.NotFoundException {
+        public Categoria updateCategoriaPartially(@PathVariable Integer id, @PathVariable String nome)
+                throws ChangeSetPersister.NotFoundException {
                 Categoria categoria = repository.findById(id)
                         .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
                 categoria.setNome(nome);

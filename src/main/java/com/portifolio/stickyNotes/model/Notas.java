@@ -31,7 +31,7 @@ public class Notas {
     @JoinTable(
             name = "notas_categoria",
             joinColumns = {@JoinColumn(name = "id_notas")},
-            inverseJoinColumns = {@JoinColumn(name = "id_categoria")}
+            inverseJoinColumns = {@JoinColumn(name = "id_categorias")}
     )
     private Set<Categoria> categorias = new HashSet<>();
 

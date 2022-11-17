@@ -6,12 +6,13 @@ import com.portifolio.stickyNotes.repository.UsuarioRepository;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.io.Serial;
+import java.util.*;
 
 @RestController
 @RequestMapping("usuario")
@@ -27,11 +28,10 @@ public class UsuarioController {
         return this.notasRepository.countByUsuario_Id(id);
     }
 
-    @GetMapping("obter_todos")
-    public List<Usuario> obterTodosUsuarios() {
-        return this.repository.findAll();
+    @GetMapping("obter_todos/{id}")
+    public Page<Usuario> obterTodosUsuarios(Pageable paginacao, @PathVariable("id") Integer id) {
+        return this.repository.findById(paginacao, id);
     }
-
 
     @PostMapping
     public Usuario salvarUsuario(@RequestBody Usuario novoUsuario) {
@@ -47,4 +47,28 @@ public class UsuarioController {
             return this.notasRepository.save(nota);
         }).orElseThrow(ChangeSetPersister.NotFoundException::new);
     }
+
+    @PatchMapping("/editar/{id}/{nome}")
+    public Usuario updateUsuarioPartially(@PathVariable Integer id, @PathVariable String nome) throws ChangeSetPersister.NotFoundException {
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        usuario.setNome(nome);
+        return repository.save(usuario);
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public Map<String, Boolean> deletar(@PathVariable(value = "id") Integer id)
+            throws ChangeSetPersister.NotFoundException {
+        Usuario usuario = (Usuario) repository.findById(id)
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        repository.delete(usuario);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return response;
+    }
+
+
 }
+
+
+
